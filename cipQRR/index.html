@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"></head>
+<body><script>
+var params = new URLSearchParams(window.location.search);
+var codigo = params.get('CodigoQR');
+if (codigo) {
+    fetch(codigo + '/index.html')
+        .then(function(r) { return r.text(); })
+        .then(function(html) {
+            var baseTag = '<base href="' + codigo + '/">';
+            html = html.replace('<head>', '<head>' + baseTag);
+            document.open();
+            document.write(html);
+            document.close();
+        });
+}
+</script></body>
+</html>
